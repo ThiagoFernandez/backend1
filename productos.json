@@ -1,0 +1,10 @@
+[{
+    "title": "Laptop",
+    "description": "Una laptop de alto rendimiento",
+    "code": "LAP123",
+    "price": 1200,
+    "stock": 5,
+    "category": "Tecnología",
+    "thumbnails": []
+  }
+  ]
