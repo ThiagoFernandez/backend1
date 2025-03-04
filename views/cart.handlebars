@@ -1,0 +1,49 @@
+<h1>Carrito de Compras</h1>
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Acción</th>
+    </tr>
+    {{#each cart.products}}
+    <tr>
+        <td>{{this.product.name}}</td>
+        <td>${{this.product.price}}</td>
+        <td>{{this.quantity}}</td>
+        <td>
+            <button onclick="removeFromCart('{{../cart._id}}', '{{this.product._id}}')">Eliminar</button>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+
+<button onclick="emptyCart('{{cart._id}}')">Vaciar Carrito</button>
+
+<script>
+    function removeFromCart(cartId, productId) {
+        fetch(`/api/carts/${cartId}/products/${productId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload(); 
+        })
+        .catch(error => alert('Error al eliminar producto: ' + error.message));
+    }
+
+    function emptyCart(cartId) {
+        fetch(`/api/carts/${cartId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload(); 
+        })
+        .catch(error => alert('Error al vaciar el carrito: ' + error.message));
+    }
+</script>
